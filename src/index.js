@@ -1,8 +1,18 @@
-const component = () => {
-    alert('haha')
-    const element = document.createElement('h1')
-    element.innerHTML = 'Hello Webpack'
-    document.body.appendChild(element)
+import './style.css';
+import Icon from './diagrams-logo.png';
+
+function component() {
+    const element = document.createElement('div');
+
+    element.innerHTML = 'Hello webpack';
+    element.classList.add('hello');
+
+    const myIcon = new Image();
+    myIcon.src = Icon;
+
+    element.appendChild(myIcon);
+
+    return element;
 }
 
-component()
+document.body.appendChild(component());
