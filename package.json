@@ -1,18 +1,29 @@
 {
   "name": "diagrams-net-vanila-ts",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "repository": "https://github.com/artif1c1al/diagrams-net-vanila-ts.git",
   "private": true,
   "author": "artemzuravlenko <artem.zhuravlenko@omneex.ru>",
   "license": "MIT",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "lint": "eslint"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
     "css-loader": "^6.7.1",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
     "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.0",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "typescript": "^4.7.3"
   }
 }
