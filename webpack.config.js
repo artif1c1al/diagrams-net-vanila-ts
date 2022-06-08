@@ -2,13 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
+    devServer: {
+        static: './dist',
+    },
     entry: {
         index: './src/index.ts',
         print: './src/print.ts',
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Output Management',
+            title: 'Development',
         }),
     ],
     output: {
@@ -31,6 +35,9 @@ module.exports = {
                 use: ['ts-loader'],
             },
         ]
+    },
+    optimization: {
+        runtimeChunk: 'single'
     },
     // don't actually know what that do
     resolve: {

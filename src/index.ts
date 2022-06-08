@@ -24,7 +24,7 @@ const makeElement = (elementName: any, innerHTML?: any, width?: any, height?: an
 
 
 function header() {
-    const element = makeElement('header', 'hello diagrams')
+    const element = makeElement('header', 'hello diagrams!')
     // element.appendChild(makeIcon(Icon, 32, 36))
 
 
