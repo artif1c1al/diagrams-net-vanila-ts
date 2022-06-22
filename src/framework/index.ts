@@ -49,26 +49,91 @@ const createElement = (
   },
 });
 
-const render = (element: FrameworkElement, container: HTMLElement | Text): void => {
-  const node = element.type === 'TEXT_ELEMENT' ? document.createTextNode('') : document.createElement(element.type);
+const createDom = (fiber: any) => {
 
-  element.props.children.forEach((child) => render(child, node));
-
-  const isProperty = (key) => key !== 'children';
-
-  Object.keys(element.props)
-    .filter(isProperty)
-    .forEach((key) => {
-      node[key] = element.props[key];
-    });
-
-  container.appendChild(node);
 };
 
-let nextUnitOfWork = null;
+const commitRoot = () => {
 
-const performUnitOfWork = (nextUnitOfWork) => {
-  // TODO
+};
+
+const render = (element: FrameworkElement, container: HTMLElement | Text): void => {
+  // eslint-disable-next-line no-use-before-define
+  wipRoot = {
+    dom: container,
+    props: {
+      children: [element],
+    },
+  };
+  // eslint-disable-next-line no-use-before-define
+  nextUnitOfWork = wipRoot;
+};
+
+// const render = (element: FrameworkElement, container: HTMLElement | Text): void => {
+//   const node = element.type === 'TEXT_ELEMENT' ? document.createTextNode('') : document.createElement(element.type);
+//
+//   element.props.children.forEach((child) => render(child, node));
+//
+//   const isProperty = (key) => key !== 'children';
+//
+//   Object.keys(element.props)
+//     .filter(isProperty)
+//     .forEach((key) => {
+//       node[key] = element.props[key];
+//     });
+//
+//   container.appendChild(node);
+// };
+
+let nextUnitOfWork = null;
+let wipRoot = null;
+
+// eslint-disable-next-line consistent-return
+const performUnitOfWork = (fiber) => {
+  if (!fiber.dom) {
+    // eslint-disable-next-line no-param-reassign
+    fiber.dom = createDom(fiber);
+  }
+
+  // if (fiber.parent) {
+  //   fiber.parent.dom.appendChild(fiber.dom);
+  // }
+
+  const elements = fiber.props.children;
+  let index = 0;
+  let prevSibling = null;
+
+  while (index < elements.length) {
+    const element = elements[index];
+
+    const newFiber = {
+      type: element.type,
+      props: element.props,
+      parent: fiber,
+      dom: null,
+    };
+
+    if (index === 0) {
+      // eslint-disable-next-line no-param-reassign
+      fiber.child = newFiber;
+    } else {
+      prevSibling.sibling = newFiber;
+    }
+
+    prevSibling = newFiber;
+    // eslint-disable-next-line no-plusplus
+    index++;
+  }
+  if (fiber.child) {
+    return fiber.child;
+  }
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) {
+      return nextFiber.sibling;
+    }
+    nextFiber = nextFiber.parent;
+  }
 };
 
 const registerIdleCallback = (workLoop) => {
@@ -81,6 +146,10 @@ const workLoop = (deadline: any) => {
     nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
     shouldYield = deadline.timeRemaining() < 1;
   }
+  if (!nextUnitOfWork && wipRoot) {
+    commitRoot();
+  }
+
   registerIdleCallback(workLoop);
 };
 
