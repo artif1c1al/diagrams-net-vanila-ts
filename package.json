@@ -1,7 +1,7 @@
 {
   "name": "diagrams-net-vanila-ts",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "src/index.js",
   "repository": "https://github.com/artif1c1al/diagrams-net-vanila-ts.git",
   "private": true,
   "author": "artemzuravlenko <artem.zhuravlenko@omneex.ru>",
@@ -25,6 +25,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
+    "framework-8652": "^1.0.3",
     "html-webpack-plugin": "^5.5.0",
     "typescript": "^4.7.3"
   }

@@ -7,12 +7,18 @@ module.exports = {
     static: './dist',
   },
   entry: {
-    index: './src/index.ts',
+    index: './src/index.js',
     print: './src/print.ts',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
+      templateContent: `
+         <html>
+          <body>
+            <div id="root"></div>
+          </body>
+        </html> 
+      `,
     }),
   ],
   output: {
@@ -22,6 +28,16 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
       {
         test: /.css$/i,
         use: ['style-loader', 'css-loader'],
