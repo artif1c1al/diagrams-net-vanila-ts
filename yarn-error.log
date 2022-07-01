@@ -30,7 +30,7 @@ npm manifest:
   {
     "name": "diagrams-net-vanila-ts",
     "version": "1.0.0",
-    "main": "src/index.js",
+    "main": "src/index.ts",
     "repository": "https://github.com/artif1c1al/diagrams-net-vanila-ts.git",
     "private": true,
     "author": "artemzuravlenko <artem.zhuravlenko@omneex.ru>",

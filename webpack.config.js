@@ -7,7 +7,7 @@ module.exports = {
     static: './dist',
   },
   entry: {
-    index: './src/index.js',
+    index: './src/index.ts',
     print: './src/print.ts',
   },
   plugins: [
